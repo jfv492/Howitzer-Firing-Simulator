@@ -1,4 +1,4 @@
-# ENSE375Project: Howitzer Firing Simulator
+# ENSE375 Software Testing and Validation Project: Howitzer Firing Simulator
 
 
 
