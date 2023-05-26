@@ -3,8 +3,8 @@
 
 
 ## Group Members
-Jasmeet Singh
-Ahras Ali
-Bulbul Arora
+- Jasmeet Singh
+- Ahras Ali
+- Bulbul Arora
 
 
