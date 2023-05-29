@@ -26,9 +26,9 @@
 The project's objective is not to implement a complete working simulator but to design test
 suits for one.
 
-###Functions
+### Functions
 
-###Constraints
+### Constraints
 - Economic Factors
 - Regulatory Compliance (Security and Access)
 - Reliability
