@@ -23,8 +23,7 @@
 ## Design Requirements
 
 ### Objectives
-The project's objective is not to implement a complete working simulator but to design test
-suits for one.
+The objective of this project is to create test suits for a Howitzer Firing Simulator. The main objective is not to desing the simulator but to design tests in order to verify the kinematic and dynamic of the simulator.
 
 ### Constraints
 - Economic Factors:
