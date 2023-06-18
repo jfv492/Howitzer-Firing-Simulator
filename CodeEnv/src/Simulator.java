@@ -2,7 +2,9 @@
 Group Member: Jasmeet Singh, Ahras Ali, Bulbul Arora
  */
 
-public class Simulator{
+
+public class Simulator {
+
     //declaring the private classes
     private double mass;
     private double velocity;
@@ -16,8 +18,8 @@ public class Simulator{
 
 
     //making a constructor to ensure the variables are intialized
-    public Simulator(double mass, double velocity, double externalForce, double dragForce, double dragCoefficient, 
-    double density, double area, double flow velocity, double gravity){
+    public Simulator(double mass, double velocity, double externalForce, double dragForce, double dragCoefficient,
+                     double density, double area, double flowVelocity, double gravity){
 
         this.mass = mass;
         this.velocity = velocity;
@@ -37,21 +39,22 @@ mass*velocity = external_force + drag_force + mass*gravity ---1
 drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
  */
 
-public double momentum(){
-    //mass*velocity = external_force + drag_force + mass*gravity ---1
+    public double momentum(){
+        //mass*velocity = external_force + drag_force + mass*gravity ---1
 
-    double p = externalForce + dragForce + mass*gravity;
-    return p;
-}
+        double p = externalForce + dragForce + mass*gravity;
+        return p;
+    }
 
-public double dragForce(){
-    //drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
-    this.dragForce = (-0.5) * dragCoefficient * density * area * flowVelocity;
-     
-
-}
-
-    public static void main(String[] args){
+    public double getDragForce(){
+        //drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
+        this.dragForce = (-0.5) * dragCoefficient * density * area * flowVelocity;
+        return this.dragForce;
 
     }
+
+//    public static void main(String[] args){
+//
+//    }
+
 }
