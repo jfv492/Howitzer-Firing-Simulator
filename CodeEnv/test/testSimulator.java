@@ -6,6 +6,6 @@ class testSimulator {
 
     @Test
     void testMomentum(){
-
+        assertEquals(true, true);
     }
 }

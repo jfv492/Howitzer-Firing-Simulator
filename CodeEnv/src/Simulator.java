@@ -39,7 +39,7 @@ mass*velocity = external_force + drag_force + mass*gravity ---1
 drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
  */
 
-    public double momentum(){
+    public double getMomentum(){
         //mass*velocity = external_force + drag_force + mass*gravity ---1
 
         double p = externalForce + dragForce + mass*gravity;
