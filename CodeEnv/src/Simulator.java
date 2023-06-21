@@ -61,7 +61,7 @@ drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
         return p;
     }
 
-    public double getDragForce(double density, double area, double flowVelocity) {
+    public double calculateDragForce(double density, double area, double flowVelocity) {
         //drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
         this.dragForce = (-0.5) * dragCoefficient * density * area * flowVelocity;
         return this.dragForce;
@@ -109,6 +109,34 @@ drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
 
     public void setGravity(double gravity) {
         this.gravity = gravity;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public double getPos_x() {
+        return pos_x;
+    }
+
+    public void setPos_x(double pos_x) {
+        this.pos_x = pos_x;
+    }
+
+    public double getPos_y() {
+        return pos_y;
+    }
+
+    public void setPos_y(double pos_y) {
+        this.pos_y = pos_y;
+    }
+
+    public double getDragForce() {
+        return dragForce;
     }
 
 //    public static void main(String[] args){
