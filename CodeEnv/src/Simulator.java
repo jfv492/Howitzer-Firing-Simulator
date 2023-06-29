@@ -134,11 +134,13 @@ public class Simulator {
         x = scanner.nextDouble();
         System.out.println("y:");
         y = scanner.nextDouble();
-        System.out.println("y:");
+        System.out.println("z:");
         z = scanner.nextDouble();
         simulator.setExternalForce(x,y,z);
 
         double[] position = simulator.simulation();
+
+        System.out.println("Firing in Progress");
         
         System.out.println("The position of the projectile after the simulation is: " + position[0] + ", "+position[1]+", "+position[2]);
         
