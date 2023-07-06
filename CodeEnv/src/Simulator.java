@@ -67,6 +67,11 @@ public class Simulator {
                     flowVelocity[2] / flowVelocityMagnitude
             };
 
+            if (dragCoefficient == 0){
+                System.out.println("Could not calculate drag coefficient. The Drag coefficient should not be 0");
+                return null;
+            }
+
             dragForceMagnitude = -0.5 * this.dragCoefficient * density * area * flowVelocityMagnitude * flowVelocityMagnitude;
 
             for(int i =0; i<3; i++){
