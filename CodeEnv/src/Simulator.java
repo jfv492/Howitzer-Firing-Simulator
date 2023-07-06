@@ -14,6 +14,7 @@ public class Simulator {
     private double dragCoefficient;
     private double initialSpeed;
     private double[] externalForce; // [x, y, z]
+    private boolean inProgressSimulation = true;
 
     public void setBarrelPose(double x, double y, double z, double angle) {
         this.barrelPose = new double[]{x, y, z, angle};
@@ -51,7 +52,9 @@ public class Simulator {
                         flowVelocity[1] * flowVelocity[1] +
                         flowVelocity[2] * flowVelocity[2]);  // sqrt(x^2 + y^2 + z^2)
 
-        if(flowVelocityMagnitude !=0) {
+
+        // this is a guard
+        if(flowVelocityMagnitude != 0) {
             double[] unit = new double[]{ // unit vector for drag force.
                     flowVelocity[0] / flowVelocityMagnitude,
                     flowVelocity[1] / flowVelocityMagnitude,
@@ -66,7 +69,7 @@ public class Simulator {
 
         }
         else{
-            System.err.println("Flow Velocity has a -ve value.");
+            System.err.println("Flow Velocity is 0");
         }
 
         return dragForce;
@@ -75,6 +78,11 @@ public class Simulator {
 
     public double [] simulation(){
         // initial position
+        if(!inProgressSimulation){
+            return null;
+        }
+        // trigger
+        inProgressSimulation = true;
         double [] p = new double [] {barrelPose[0], barrelPose[1],barrelPose[2]};
 
         // calculating the intial velocity, we are assuming there is no intial y 
@@ -100,12 +108,14 @@ public class Simulator {
                 velocity[i] += acceleration[i];               
             }
 
-            // on downward trajectory.
+            // on downward trajectory. - guard
             if(velocity[2] <= 0 ){
                 break;
             }
 
         }
+
+        inProgressSimulation = false;
 
         return p;
 
