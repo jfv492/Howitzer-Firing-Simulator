@@ -65,6 +65,9 @@ public class Simulator {
             }
 
         }
+        else{
+            System.err.println("Flow Velocity has a -ve value.");
+        }
 
         return dragForce;
 
@@ -75,13 +78,17 @@ public class Simulator {
         double [] p = new double [] {barrelPose[0], barrelPose[1],barrelPose[2]};
 
         // calculating the intial velocity, we are assuming there is no intial y 
-        double [] velocity = new double[] {initialSpeed * Math.cos(barrelPose[3]), 0, initialSpeed * Math.sin(barrelPose[3])};
+        double [] velocity = new double[] {initialSpeed * Math.cos(barrelPose[3]),initialSpeed * Math.sin(barrelPose[3]), 0};
 
         //Using the while to to ensure the projectile lands on the ground 
         while (p[2] >= 0){
             double [] dragForce = dragForce(velocity);
+            if(dragForce == null){
+                System.err.println("The drag Force could not be calculated. Simulation cannot be completed.");
+                break;
+            }
 
-            // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓 (𝑡)  +  𝑚𝑔
+            // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓d(𝑡)  +  𝑚𝑔
             double [] acceleration = new double [] {(externalForce[0] + dragForce[0] + (mass * GRAVITY)) / mass, 
                 (externalForce[1] + dragForce[1] + (mass * GRAVITY)) / mass, 
                 (externalForce[2] + dragForce[2] + (mass * GRAVITY)) / mass};
@@ -93,10 +100,14 @@ public class Simulator {
                 velocity[i] += acceleration[i];               
             }
 
+            // on downward trajectory.
+            if(velocity[2] <= 0 ){
+                break;
+            }
+
         }
 
         return p;
-
 
     }
 
@@ -148,104 +159,3 @@ public class Simulator {
 
 
 }
-
-
-/***************************
- * Old Code 
- **************************/
-
-/*
-mass*velocity = external_force + drag_force + mass*gravity ---1
-drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
- */
-
-//    public double getMomentum() {
-//        //mass*velocity = external_force + drag_force + mass*gravity ---1
-//
-//        double p = externalForce + dragForce + mass * gravity;
-//        return p;
-//    }
-//
-//    public double calculateDragForce(double density, double area, double flowVelocity) {
-//        //drag_force = (-0.5)*drag_coefficient*density*area*flow_velocity ---2
-//        this.dragForce = (-0.5) * dragCoefficient * density * area * flowVelocity;
-//        return this.dragForce;
-//    }
-//
-//    public double getMass() {
-//        return mass;
-//    }
-//
-//    public void setMass(double mass) {
-//        this.mass = mass;
-//    }
-//
-//    public double getVelocity() {
-//        return velocity;
-//    }
-//
-//    public void setVelocity(double velocity) {
-//        this.velocity = velocity;
-//    }
-//
-//    public double getExternalForce() {
-//        return externalForce;
-//    }
-//
-//    public void setExternalForce(double externalForce) {
-//        this.externalForce = externalForce;
-//    }
-//
-//    public void setDragForce(double dragForce) {
-//        this.dragForce = dragForce;
-//    }
-//
-//    public double getDragCoefficient() {
-//        return dragCoefficient;
-//    }
-//
-//    public void setDragCoefficient(double dragCoefficient) {
-//        this.dragCoefficient = dragCoefficient;
-//    }
-//
-//    public double getGravity() {
-//        return gravity;
-//    }
-//
-//    public void setGravity(double gravity) {
-//        this.gravity = gravity;
-//    }
-//
-//    public double getRadius() {
-//        return radius;
-//    }
-//
-//    public void setRadius(double radius) {
-//        this.radius = radius;
-//    }
-//
-//    public double getPos_x() {
-//        return pos_x;
-//    }
-//
-//    public void setPos_x(double pos_x) {
-//        this.pos_x = pos_x;
-//    }
-//
-//    public double getPos_y() {
-//        return pos_y;
-//    }
-//
-//    public void setPos_y(double pos_y) {
-//        this.pos_y = pos_y;
-//    }
-//
-//    public double getDragForce() {
-//        return dragForce;
-//    }
-//
-////    public static void main(String[] args){
-////
-////    }
-//
-//}
