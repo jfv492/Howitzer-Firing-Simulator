@@ -131,4 +131,145 @@
          double [] results = simulator.simulation();
          assertNotNull(results);
      }
+
+    @Test
+     public void testDragCoefficient_Zero(){
+         // checking with min value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(0);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNull(results);
+     }
+
+     @Test
+     public void testDragCoefficient_Nominal(){
+         // checking with nominal value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testDragCoefficient_PositiveInfinity(){
+         // checking with nominal value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(Double.POSITIVE_INFINITY);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testInitialSpeed_Zero(){
+         // checking with min value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(0);
+         double [] results = simulator.simulation();
+         assertNull(results);
+     }
+
+    @Test
+     public void testInitialSpeed_Nominal(){
+         // checking with nominal value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testIntialSpeed_PositiveInfinity(){
+         // checking with nominal value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(Double.POSITIVE_INFINITY);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testExternalForce_NegativeInfinity(){
+         // checking with min value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testExternalForce_Zero(){
+         // checking with zero value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(0,0,0);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testExternalForce_Nominal(){
+         // checking with zero value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(1,1,1);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
+    @Test
+     public void testExternalForce_PositiveInfinity(){
+         // checking with max+ value
+         Simulator simulator = new Simulator();
+         simulator.setBarrelPose(0, 0, 0, Math.PI/4);
+         simulator.setRadius(0.5);
+         simulator.setMass(1);
+         simulator.setExternalForce(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+         simulator.setDragCoefficient(0.5);
+         simulator.setInitialSpeed(10);
+         double [] results = simulator.simulation();
+         assertNotNull(results);
+     }
+
  }
