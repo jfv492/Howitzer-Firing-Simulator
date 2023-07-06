@@ -14,6 +14,7 @@ public class Simulator {
     private double dragCoefficient;
     private double initialSpeed;
     private double[] externalForce; // [x, y, z]
+
     private boolean inProgressSimulation = true;
 
     public void setBarrelPose(double x, double y, double z, double angle) {
@@ -45,6 +46,11 @@ public class Simulator {
         double density = 1.225; // assuming air density at sea level = 1.225 kg / m^3
         double[] dragForce = new double[3];
         double dragForceMagnitude;
+
+        if(radius <= 0){
+            System.err.println("radius cannot be less than or equal to 0.");
+            return null;
+        }
         double area = Math.PI * radius * radius; // pi*r^2
 
         double flowVelocityMagnitude = Math.sqrt(
@@ -70,6 +76,7 @@ public class Simulator {
         }
         else{
             System.err.println("Flow Velocity is 0");
+            return null;
         }
 
         return dragForce;
@@ -93,13 +100,19 @@ public class Simulator {
             double [] dragForce = dragForce(velocity);
             if(dragForce == null){
                 System.err.println("The drag Force could not be calculated. Simulation cannot be completed.");
-                break;
+                return null;
             }
-
+            double acceleration[];
             // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓d(𝑡)  +  𝑚𝑔
-            double [] acceleration = new double [] {(externalForce[0] + dragForce[0] + (mass * GRAVITY)) / mass, 
-                (externalForce[1] + dragForce[1] + (mass * GRAVITY)) / mass, 
-                (externalForce[2] + dragForce[2] + (mass * GRAVITY)) / mass};
+            if(mass != 0) {
+                acceleration = new double[]{(externalForce[0] + dragForce[0] + (mass * GRAVITY)) / mass,
+                        (externalForce[1] + dragForce[1] + (mass * GRAVITY)) / mass,
+                        (externalForce[2] + dragForce[2] + (mass * GRAVITY)) / mass};
+            }
+            else{
+                System.err.println("Mass Value cannot be 0.");
+                return null;
+            }
 
             // In this for loop we are updating our position and velocity    
             for (int i = 0; i<3; i++)
