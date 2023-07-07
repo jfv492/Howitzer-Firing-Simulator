@@ -22,15 +22,27 @@ public class Simulator {
     }
 
     public void setRadius(double radius) {
-        this.radius = radius;
+        if (radius <= 0 || radius > 0.25) {
+            throw new IllegalArgumentException("Invalid radius value. Radius must be greater than zero and less than 0.25.");
+        } else {
+            this.radius = radius;
+        }
     }
 
     public void setMass(double mass) {
-        this.mass = mass;
+        if (mass <= 0) {
+            throw new IllegalArgumentException("Invalid mass value. Mass must be greater than zero.");
+        } else {
+            this.mass = mass;
+        }
     }
 
     public void setDragCoefficient(double dragCoefficient) {
-        this.dragCoefficient = dragCoefficient;
+        if (dragCoefficient <= 0 || dragCoefficient >= 1) {
+            throw new IllegalArgumentException("Invalid value for Drag Coefficient. Usually for a sphere, the value of drag coefficient is between 0 and 1.");
+        } else {
+            this.dragCoefficient = dragCoefficient;
+        }
     }
 
     public void setInitialSpeed(double initialSpeed) {
@@ -47,8 +59,8 @@ public class Simulator {
         double[] dragForce = new double[3];
         double dragForceMagnitude;
 
-        if(radius <= 0){
-            System.err.println("radius cannot be less than or equal to 0.");
+        if (radius <= 0) {
+            System.err.println("Radius cannot be less than or equal to 0.");
             return null;
         }
         double area = Math.PI * radius * radius; // pi*r^2
@@ -60,26 +72,25 @@ public class Simulator {
 
 
         // this is a guard
-        if(flowVelocityMagnitude != 0) {
+        if (flowVelocityMagnitude != 0) {
             double[] unit = new double[]{ // unit vector for drag force.
                     flowVelocity[0] / flowVelocityMagnitude,
                     flowVelocity[1] / flowVelocityMagnitude,
                     flowVelocity[2] / flowVelocityMagnitude
             };
 
-            if (dragCoefficient == 0){
-                System.out.println("Could not calculate drag coefficient. The Drag coefficient should not be 0");
+            if (dragCoefficient == 0) {
+                System.err.println("Could not calculate Drag Force. The Drag coefficient should not be 0");
                 return null;
             }
 
             dragForceMagnitude = -0.5 * this.dragCoefficient * density * area * flowVelocityMagnitude * flowVelocityMagnitude;
 
-            for(int i =0; i<3; i++){
-                dragForce[i] = dragForceMagnitude*unit[i]; // magnitude * x unit component ...
+            for (int i = 0; i < 3; i++) {
+                dragForce[i] = dragForceMagnitude * unit[i]; // magnitude * x unit component ...
             }
 
-        }
-        else{
+        } else {
             System.err.println("Flow Velocity is 0");
             return null;
         }
@@ -88,46 +99,44 @@ public class Simulator {
 
     }
 
-    public double [] simulation(){
+    public double[] simulation() {
         // initial position
-        if(!inProgressSimulation){
+        if (!inProgressSimulation) {
             return null;
         }
         // trigger
         inProgressSimulation = true;
-        double [] p = new double [] {barrelPose[0], barrelPose[1],barrelPose[2]};
+        double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2]};
 
         // calculating the intial velocity, we are assuming there is no intial y 
-        double [] velocity = new double[] {initialSpeed * Math.cos(barrelPose[3]),initialSpeed * Math.sin(barrelPose[3]), 0};
+        double[] velocity = new double[]{initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3]), 0};
 
         //Using the while to to ensure the projectile lands on the ground 
-        while (p[2] >= 0){
-            double [] dragForce = dragForce(velocity);
-            if(dragForce == null){
+        while (p[2] >= 0) {
+            double[] dragForce = dragForce(velocity);
+            if (dragForce == null) {
                 System.err.println("The drag Force could not be calculated. Simulation cannot be completed.");
                 return null;
             }
             double acceleration[];
             // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓d(𝑡)  +  𝑚𝑔
-            if(mass != 0) {
+            if (mass != 0) {
                 acceleration = new double[]{(externalForce[0] + dragForce[0] + (mass * GRAVITY)) / mass,
                         (externalForce[1] + dragForce[1] + (mass * GRAVITY)) / mass,
                         (externalForce[2] + dragForce[2] + (mass * GRAVITY)) / mass};
-            }
-            else{
+            } else {
                 System.err.println("Mass Value cannot be 0.");
                 return null;
             }
 
             // In this for loop we are updating our position and velocity    
-            for (int i = 0; i<3; i++)
-            {
+            for (int i = 0; i < 3; i++) {
                 p[i] += velocity[i];
-                velocity[i] += acceleration[i];               
+                velocity[i] += acceleration[i];
             }
 
             // on downward trajectory. - guard
-            if(velocity[2] <= 0 ){
+            if (p[2] <= 0) {
                 break;
             }
 
@@ -150,7 +159,7 @@ public class Simulator {
         System.out.println("z:");
         double z = scanner.nextDouble();
         System.out.println("Angle set to pi/4");
-        simulator.setBarrelPose(x,y,z,Math.PI/4);
+        simulator.setBarrelPose(x, y, z, Math.PI / 4);
 
         System.out.println("Enter Radius of Projectile:");
         double radius = scanner.nextDouble();
@@ -175,14 +184,14 @@ public class Simulator {
         y = scanner.nextDouble();
         System.out.println("z:");
         z = scanner.nextDouble();
-        simulator.setExternalForce(x,y,z);
+        simulator.setExternalForce(x, y, z);
 
         double[] position = simulator.simulation();
 
         System.out.println("Firing in Progress");
-        
-        System.out.println("The position of the projectile after the simulation is: " + position[0] + ", "+position[1]+", "+position[2]);
-        
+
+        System.out.println("The position of the projectile after the simulation is: " + position[0] + ", " + position[1] + ", " + position[2]);
+
     }
 
 
