@@ -39,7 +39,7 @@ public class Simulator {
 
 
     public void setInitialSpeed(double initialSpeed) {
-        if (initialSpeed < 0) {
+        if (initialSpeed <= 0) {
             throw new IllegalArgumentException("Initial Speed cant be 0.");
         } else {
             this.initialSpeed = initialSpeed;
@@ -47,7 +47,11 @@ public class Simulator {
     }
 
     public void setExternalForce(double x, double y, double z) {
-        this.externalForce = new double[]{x, y, z};
+        if (x == 0 && y == 0 && z == 0) {
+            throw new IllegalArgumentException("External force cannot be 0. There has to be some kind of external Force.");
+        } else {
+            this.externalForce = new double[]{x, y, z};
+        }
     }
 
     public double[] dragForce(double[] flowVelocity) {
