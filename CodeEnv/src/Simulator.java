@@ -7,14 +7,13 @@ import java.util.*;
 public class Simulator {
 
     private static final double GRAVITY = 9.81; // m/s^2
+    private static final double dragCoefficient = 0.5; // assuming it is a sphere - spheres usually have a drag coefficient of 0.5
 
     private double[] barrelPose; // [x, y, z, orientation]
     private double radius;
     private double mass;
-    private double dragCoefficient;
     private double initialSpeed;
     private double[] externalForce; // [x, y, z]
-
     private boolean inProgressSimulation = true;
 
     public void setBarrelPose(double x, double y, double z, double angle) {
@@ -22,6 +21,7 @@ public class Simulator {
     }
 
     public void setRadius(double radius) {
+
         if (radius <= 0 || radius > 0.25) {
             throw new IllegalArgumentException("Invalid radius value. Radius must be greater than zero and less than 0.25.");
         } else {
@@ -30,23 +30,20 @@ public class Simulator {
     }
 
     public void setMass(double mass) {
-        if (mass <= 0) {
+        if (mass <= 0 || mass > 10) {
             throw new IllegalArgumentException("Invalid mass value. Mass must be greater than zero.");
         } else {
             this.mass = mass;
         }
     }
 
-    public void setDragCoefficient(double dragCoefficient) {
-        if (dragCoefficient <= 0 || dragCoefficient >= 1) {
-            throw new IllegalArgumentException("Invalid value for Drag Coefficient. Usually for a sphere, the value of drag coefficient is between 0 and 1.");
-        } else {
-            this.dragCoefficient = dragCoefficient;
-        }
-    }
 
     public void setInitialSpeed(double initialSpeed) {
-        this.initialSpeed = initialSpeed;
+        if (initialSpeed < 0) {
+            throw new IllegalArgumentException("Initial Speed cant be 0.");
+        } else {
+            this.initialSpeed = initialSpeed;
+        }
     }
 
     public void setExternalForce(double x, double y, double z) {
@@ -60,7 +57,7 @@ public class Simulator {
         double dragForceMagnitude;
 
         if (radius <= 0) {
-            System.err.println("Radius cannot be less than or equal to 0.");
+//            System.err.println("Radius cannot be less than or equal to 0.");
             return null;
         }
         double area = Math.PI * radius * radius; // pi*r^2
@@ -79,20 +76,15 @@ public class Simulator {
                     flowVelocity[2] / flowVelocityMagnitude
             };
 
-            if (dragCoefficient == 0) {
-                System.err.println("Could not calculate Drag Force. The Drag coefficient should not be 0");
-                return null;
-            }
-
-            dragForceMagnitude = -0.5 * this.dragCoefficient * density * area * flowVelocityMagnitude * flowVelocityMagnitude;
+            dragForceMagnitude = -0.5 * dragCoefficient * density * area * flowVelocityMagnitude * flowVelocityMagnitude;
 
             for (int i = 0; i < 3; i++) {
                 dragForce[i] = dragForceMagnitude * unit[i]; // magnitude * x unit component ...
             }
 
         } else {
-            System.err.println("Flow Velocity is 0");
-            return null;
+            throw new IllegalArgumentException("flow velocity cannot be 0");
+            //return null;
         }
 
         return dragForce;
@@ -101,12 +93,15 @@ public class Simulator {
 
     public double[] simulation() {
         // initial position
+        double max = 0;
+        boolean b = true;
+
         if (!inProgressSimulation) {
             return null;
         }
         // trigger
         inProgressSimulation = true;
-        double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2]};
+        double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2], max};
 
         // calculating the intial velocity, we are assuming there is no intial y 
         double[] velocity = new double[]{initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3]), 0};
@@ -135,15 +130,22 @@ public class Simulator {
                 velocity[i] += acceleration[i];
             }
 
+            if (velocity[2] < 0 && b == true) {
+                max = p[2];
+                b = false;
+            }
             // on downward trajectory. - guard
-            if (p[2] <= 0) {
+            if (p[2] < 0) {
                 break;
             }
 
         }
 
+        p[3] = max;
+
         inProgressSimulation = false;
 
+        //p now contains position[x], pos[y], pos[z] and the height of the projectile at the highest point.
         return p;
 
     }
@@ -169,9 +171,6 @@ public class Simulator {
         double mass = scanner.nextDouble();
         simulator.setMass(mass);
 
-        System.out.println("Enter Drag Coefficient:");
-        double dragC = scanner.nextDouble();
-        simulator.setDragCoefficient(dragC);
 
         System.out.println("Enter Initial Speed:");
         double initSpeed = scanner.nextDouble();

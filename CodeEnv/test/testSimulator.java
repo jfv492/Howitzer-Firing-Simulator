@@ -15,8 +15,7 @@ class testSimulator {
         simulator.setBarrelPose(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, 0);
         simulator.setRadius(0.25);
         simulator.setMass(1);
-        simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
+        simulator.setExternalForce(10, 10, 10);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -31,7 +30,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotEquals(new double[]{0, 0, 0}, results);
@@ -45,7 +43,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -60,7 +57,6 @@ class testSimulator {
 //         simulator.setRadius(0);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertThrows(IllegalArgumentException.class, () -> simulator.setRadius(0));
@@ -70,13 +66,13 @@ class testSimulator {
     public void testRadius_Nominal() {
         // checking with nominal value
         Simulator simulator = new Simulator();
-        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
+        simulator.setBarrelPose(1, 1, 1, Math.PI / 4);
         simulator.setRadius(0.25);
-        simulator.setMass(1);
-        simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
+        simulator.setMass(0.5);
+        simulator.setExternalForce(10, 10, 10);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
+        System.out.println(results[0] + " " + results[1] + " " + results[2] + " " + results[3]);
         assertNotNull(results);
     }
 
@@ -88,7 +84,6 @@ class testSimulator {
 //         simulator.setRadius(Double.POSITIVE_INFINITY);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertThrows(IllegalArgumentException.class, () -> simulator.setRadius(Double.POSITIVE_INFINITY));
@@ -102,7 +97,6 @@ class testSimulator {
         simulator.setRadius(0.25);
 //         simulator.setMass(0);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertThrows(IllegalArgumentException.class, () -> simulator.setMass(0));
@@ -117,7 +111,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -129,55 +122,14 @@ class testSimulator {
         Simulator simulator = new Simulator();
         simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
         simulator.setRadius(0.25);
-        simulator.setMass(Double.POSITIVE_INFINITY);
+//        simulator.setMass(Double.POSITIVE_INFINITY);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
-        assertNotNull(results);
+        assertThrows(IllegalArgumentException.class, () -> simulator.setMass(Double.POSITIVE_INFINITY));
+
     }
 
-    @Test
-    public void testDragCoefficient_Zero() {
-        // checking with min value
-        Simulator simulator = new Simulator();
-        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(1);
-        simulator.setExternalForce(100, 100, 100);
-//         simulator.setDragCoefficient(0);
-        simulator.setInitialSpeed(10);
-        double[] results = simulator.simulation();
-        assertThrows(IllegalArgumentException.class, () -> simulator.setDragCoefficient(0));
-    }
-
-    @Test
-    public void testDragCoefficient_Nominal() {
-        // checking with nominal value
-        Simulator simulator = new Simulator();
-        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(1);
-        simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
-        simulator.setInitialSpeed(10);
-        double[] results = simulator.simulation();
-        assertNotNull(results);
-    }
-
-    @Test
-    public void testDragCoefficient_PositiveInfinity() {
-        // checking with nominal value
-        Simulator simulator = new Simulator();
-        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(1);
-        simulator.setExternalForce(100, 100, 100);
-//        simulator.setDragCoefficient(Double.POSITIVE_INFINITY);
-        simulator.setInitialSpeed(10);
-        double[] results = simulator.simulation();
-        assertThrows(IllegalArgumentException.class, () -> simulator.setDragCoefficient(Double.POSITIVE_INFINITY));
-    }
 
     @Test
     public void testInitialSpeed_Zero() {
@@ -187,7 +139,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(0);
         double[] results = simulator.simulation();
         assertNull(results);
@@ -201,7 +152,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -215,7 +165,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(Double.POSITIVE_INFINITY);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -229,7 +178,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -243,7 +191,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(0, 0, 0);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -258,7 +205,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(100, 100, 100);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);
@@ -272,7 +218,6 @@ class testSimulator {
         simulator.setRadius(0.25);
         simulator.setMass(1);
         simulator.setExternalForce(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         double[] results = simulator.simulation();
         assertNotNull(results);

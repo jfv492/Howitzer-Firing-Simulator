@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /*
- * References: 
+ * References:
  *  1. https://www.youtube.com/watch?v=5o3fMLPY7qY
  *  2. https://www.youtube.com/watch?v=Kmgo00avvEw
  *  3. https://www.youtube.com/watch?v=iE8tZ0hn2Ws
@@ -16,18 +16,18 @@ import java.awt.event.ActionListener;
 public class SimulatorGUI {
     private int fireCount = 0;
 
-    public SimulatorGUI(){
+    public SimulatorGUI() {
         JFrame frame = new JFrame();
         JButton button = new JButton("Launch Projectile");
         JLabel label = new JLabel("Number of Fires: 0");
 
 
         button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 //User input starts from here
 
                 // Adding a grid layout for the dialogue box
-                JPanel inputPanel = new JPanel(new GridLayout(0,2));
+                JPanel inputPanel = new JPanel(new GridLayout(0, 2));
 
                 // Making the text fields for the inputs
                 JTextField xField = new JTextField(10);
@@ -68,12 +68,12 @@ public class SimulatorGUI {
 
 
                 // To show the values in  separate dialogue box.
-                int result = JOptionPane.showConfirmDialog(frame, inputPanel, "Enter Values", 
-                JOptionPane.OK_CANCEL_OPTION);
+                int result = JOptionPane.showConfirmDialog(frame, inputPanel, "Enter Values",
+                        JOptionPane.OK_CANCEL_OPTION);
 
                 // Adding a if statement to check if we got the input from the user
-                if(result == JOptionPane.OK_OPTION){
-                    double setBarrelPoseX  = Double.parseDouble(xField.getText());
+                if (result == JOptionPane.OK_OPTION) {
+                    double setBarrelPoseX = Double.parseDouble(xField.getText());
                     double setBarrelPoseY = Double.parseDouble(yField.getText());
                     double setBarrelPoseZ = Double.parseDouble(zField.getText());
                     double setAngle = Double.parseDouble(angleField.getText());
@@ -81,17 +81,16 @@ public class SimulatorGUI {
                     double setMass = Double.parseDouble(massField.getText());
                     double setDragCoefficient = Double.parseDouble(dragCoefficientField.getText());
                     double setInitialSpeed = Double.parseDouble(initialSpeedField.getText());
-                    double setExternalForceX  = Double.parseDouble(externalForceXField.getText());
-                    double setExternalForceY  = Double.parseDouble(externalForceYField.getText());
-                    double setExternalForceZ  = Double.parseDouble(externalForceZField.getText());
+                    double setExternalForceX = Double.parseDouble(externalForceXField.getText());
+                    double setExternalForceY = Double.parseDouble(externalForceYField.getText());
+                    double setExternalForceZ = Double.parseDouble(externalForceZField.getText());
 
                     //Running the simulation
                     Simulator simulator = new Simulator();
 
-                    simulator.setBarrelPose(setBarrelPoseX , setBarrelPoseY , setBarrelPoseZ , setAngle);
+                    simulator.setBarrelPose(setBarrelPoseX, setBarrelPoseY, setBarrelPoseZ, setAngle);
                     simulator.setRadius(setRadius);
                     simulator.setMass(setMass);
-                    simulator.setDragCoefficient(setDragCoefficient);
                     simulator.setInitialSpeed(setInitialSpeed);
                     simulator.setExternalForce(setExternalForceX, setExternalForceY, setExternalForceZ);
 
@@ -112,7 +111,7 @@ public class SimulatorGUI {
                 }
 
             }
-            
+
         });
 
 
@@ -132,11 +131,11 @@ public class SimulatorGUI {
     }
 
 
-   public static void main(String[] args) {
-   
-    //Creating a constructor
-    new SimulatorGUI();
-}
+    public static void main(String[] args) {
+
+        //Creating a constructor
+        new SimulatorGUI();
+    }
 }
 
 
