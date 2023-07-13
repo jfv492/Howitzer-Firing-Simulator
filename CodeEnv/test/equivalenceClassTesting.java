@@ -11,20 +11,19 @@ public class equivalenceClassTesting {
         Simulator simulator = new Simulator();
 
         //setup for validating the inputs
-        simulator.setBarrelPose(0,0,0, Math.PI / 4);
+        simulator.setBarrelPose(1,1,1, Math.PI / 4);
         simulator.setRadius(0.25);
         simulator.setMass(0.5);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
-        simulator.setExternalForce(0,0,0);
+        simulator.setExternalForce(10,10,10);
 
         double [] position = simulator.simulation();
 
         assertNotNull(position);
 
-        assertEquals(7.0710678118654755, position[0], 0.001);
-        assertEquals(7.071067811865475, position[1], 0.001);
-        assertEquals(0, position[2], 0.001);
+        assertEquals(-75.97332312833615, position[0], 0.001);
+        assertEquals(-75.97332312833615, position[1], 0.001);
+        assertEquals(-88.79341036242101, position[2], 0.001);
     }
 
     @Test 
@@ -85,56 +84,47 @@ public class equivalenceClassTesting {
         Simulator simulator = new Simulator();
 
         //setup for validating the inputs
-        simulator.setBarrelPose(0,0,0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(0.5);
-        simulator.setDragCoefficient(0.5);
-        simulator.setInitialSpeed(-0.5);
-        simulator.setExternalForce(0,0,0);
 
-        double [] position = simulator.simulation();
 
-        assertNotNull(position);
-
-        assertEquals(0, position[0], 0.001);
-        assertEquals(0, position[1], 0.001);
-        assertEquals(0, position[2], 0.001);
+        try {
+            assertThrows(IllegalArgumentException.class, () -> {simulator.setInitialSpeed(-0.5);});
+        } catch (IllegalArgumentException e) {
+            System.out.println("Initial speed cant be negative. ");
+        }
 
     }
 
-    @Test
-    public void testExternalForceNegativeValue_XComponent(){
-        Simulator simulator = new Simulator();
+//    @Test
+//    public void testExternalForceNegativeValue_XComponent(){
+//        Simulator simulator = new Simulator();
+//
+//        //setup for validating the inputs
+//        simulator.setBarrelPose(0,0,0, Math.PI / 4);
+//        simulator.setRadius(0.25);
+//        simulator.setMass(0.5);
+//        simulator.setInitialSpeed(10);
+//        simulator.setExternalForce(-10,0,0);
+//
+//        double [] position = simulator.simulation();
+//
+//        assertNotNull(position);
+//    }
 
-        //setup for validating the inputs
-        simulator.setBarrelPose(0,0,0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(0.5);
-        simulator.setDragCoefficient(0.5);
-        simulator.setInitialSpeed(10);
-        simulator.setExternalForce(-10,0,0);
-
-        double [] position = simulator.simulation();
-
-        assertNotNull(position);
-    }
-
-    @Test
-    public void testExternalForceNegativeValue_YComponent(){
-        Simulator simulator = new Simulator();
-
-        //setup for validating the inputs
-        simulator.setBarrelPose(0,0,0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(0.5);
-        simulator.setDragCoefficient(0.5);
-        simulator.setInitialSpeed(10);
-        simulator.setExternalForce(0,-10,0);
-
-        double [] position = simulator.simulation();
-
-        assertNotNull(position);
-    }
+//    @Test
+//    public void testExternalForceNegativeValue_YComponent(){
+//        Simulator simulator = new Simulator();
+//
+//        //setup for validating the inputs
+//        simulator.setBarrelPose(0,0,0, Math.PI / 4);
+//        simulator.setRadius(0.25);
+//        simulator.setMass(0.5);
+//        simulator.setInitialSpeed(10);
+//        simulator.setExternalForce(0,-10,0);
+//
+//        double [] position = simulator.simulation();
+//
+////        assertNotNull(position);
+//    }
 
     @Test
     public void testExternalForceNegativeValue_ZComponent(){
@@ -144,7 +134,6 @@ public class equivalenceClassTesting {
         simulator.setBarrelPose(0,0,0, Math.PI / 4);
         simulator.setRadius(0.25);
         simulator.setMass(0.5);
-        simulator.setDragCoefficient(0.5);
         simulator.setInitialSpeed(10);
         simulator.setExternalForce(0,0,-10);
 

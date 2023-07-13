@@ -135,13 +135,13 @@ class testSimulator {
     public void testInitialSpeed_Zero() {
         // checking with min value
         Simulator simulator = new Simulator();
-        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(1);
-        simulator.setExternalForce(100, 100, 100);
-        simulator.setInitialSpeed(0);
-        double[] results = simulator.simulation();
-        assertNull(results);
+//        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
+//        simulator.setRadius(0.25);
+//        simulator.setMass(1);
+//        simulator.setExternalForce(100, 100, 100);
+////        simulator.setInitialSpeed(0);
+//        double[] results = simulator.simulation();
+        assertThrows(IllegalArgumentException.class, () -> simulator.setInitialSpeed(0));
     }
 
     @Test
@@ -187,14 +187,7 @@ class testSimulator {
     public void testExternalForce_Zero() {
         // checking with zero value
         Simulator simulator = new Simulator();
-        simulator.setBarrelPose(0, 0, 0, Math.PI / 4);
-        simulator.setRadius(0.25);
-        simulator.setMass(1);
-        simulator.setExternalForce(0, 0, 0);
-        simulator.setInitialSpeed(10);
-        double[] results = simulator.simulation();
-        assertNotNull(results);
-
+        assertThrows(IllegalArgumentException.class, () -> simulator.setExternalForce(0,0,0));
     }
 
     @Test
