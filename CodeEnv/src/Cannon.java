@@ -1,8 +1,10 @@
 
 public class Cannon {
 
-    public double[] barrelPose; // [x, y, z, orientation] , cannon
-    public double initialSpeed; // cannon
+    private double[] barrelPose; // [x, y, z, orientation] , cannon
+    private double initialSpeed; // cannon
+    private double[] externalForce; // [x, y, z] // cannon
+
 
     public double[] getBarrelPose() {
         return barrelPose;
@@ -15,9 +17,6 @@ public class Cannon {
     public double[] getExternalForce() {
         return externalForce;
     }
-
-    public double[] externalForce; // [x, y, z] // cannon
-
 
     public void setBarrelPose(double x, double y, double z, double angle) {
         this.barrelPose = new double[]{x, y, z, angle};

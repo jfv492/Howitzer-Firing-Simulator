@@ -1,5 +1,10 @@
 
 public class RoundShot {
+
+    private double radius; // round shot
+    private double mass; // round shot
+    private static final double dragCoefficient = 0.5; // cannon -assuming it is a sphere - spheres usually have a drag coefficient of 0.5
+
     public double getRadius() {
         return radius;
     }
@@ -11,10 +16,6 @@ public class RoundShot {
     public static double getDragCoefficient() {
         return dragCoefficient;
     }
-
-    private double radius; // round shot
-    private double mass; // round shot
-    private static final double dragCoefficient = 0.5; // cannon -assuming it is a sphere - spheres usually have a drag coefficient of 0.5
 
     public void setRadius(double radius) {
 
