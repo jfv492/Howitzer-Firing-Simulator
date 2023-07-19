@@ -87,14 +87,15 @@ public class SimulatorGUI {
 
                     //Running the simulation
                     Simulator simulator = new Simulator();
+                    Cannon cannon = new Cannon();
+                    RoundShot round_shot = new RoundShot();
+                    cannon.setBarrelPose(setBarrelPoseX, setBarrelPoseY, setBarrelPoseZ, setAngle);
+                    round_shot.setRadius(setRadius);
+                    round_shot.setMass(setMass);
+                    cannon.setInitialSpeed(setInitialSpeed);
+                    cannon.setExternalForce(setExternalForceX, setExternalForceY, setExternalForceZ);
 
-                    simulator.setBarrelPose(setBarrelPoseX, setBarrelPoseY, setBarrelPoseZ, setAngle);
-                    simulator.setRadius(setRadius);
-                    simulator.setMass(setMass);
-                    simulator.setInitialSpeed(setInitialSpeed);
-                    simulator.setExternalForce(setExternalForceX, setExternalForceY, setExternalForceZ);
-
-                    double[] position = simulator.simulation();
+                    double[] position = simulator.simulation(cannon,round_shot);
 
                     //Display the results
 
@@ -139,6 +140,6 @@ public class SimulatorGUI {
 }
 
 
-   
-    
+
+
 
