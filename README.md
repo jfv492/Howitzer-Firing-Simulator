@@ -10,15 +10,15 @@
 
 - IDE: IntelliJ & Visual Studio COde
 - Use GitLab for source code management.
-- Unit Testing 
+- Unit Testing: 
    - Path testing: Node Coverage 
 
-- Integration testing.
+- Integration testing:
    - Decision table-based testing
    - Bounday value testing 
    - Equivalence class testing
    
-- System testing.
+- System testing:
    - Finite State Machines 
 
 ## Design Requirements
