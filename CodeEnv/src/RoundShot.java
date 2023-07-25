@@ -27,7 +27,7 @@ public class RoundShot {
     }
 
     public void setMass(double mass) {
-        if (mass <= 0 || mass > 10) {
+        if (mass <= 0 || mass > 50) {
             throw new IllegalArgumentException("Invalid mass value. Mass must be greater than zero.");
         } else {
             this.mass = mass;

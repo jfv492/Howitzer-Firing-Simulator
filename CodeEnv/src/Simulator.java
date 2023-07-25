@@ -60,21 +60,26 @@ public class Simulator {
             for (int i = 0; i < 3; i++) {
 
                 p[i] += velocity[i] * step;
-                if ((acceleration[2] * step) <= 0 && p[2] > max && i == 2) { // show the max height of the projectile.
+                if ((acceleration[2] * step * step) <= 0 && p[2] > max && i == 2) { // show the max height of the projectile.
                     max = p[2];
                 }
-                velocity[i] += acceleration[i] * step;
+                velocity[i] += acceleration[i] * step * step;
             }
 
             totalTime += step; // not showing the total time right now.
+//            System.out.println(p[0] + " " + p[1] + " " + p[2] + " ");
 
-            // on downward trajectory. - guard
+            if(p[2] < 0){
+                p[2] = 0;
+                break;
+            }
         }
 
         p[3] = max;
 
         inProgressSimulation = false;
         System.out.println(totalTime);
+
 
         //p now contains position[x], pos[y], pos[z] and the height of the projectile at the highest point.
         return p;
