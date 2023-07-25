@@ -8,17 +8,18 @@
 
 ## Project Specifications
 
-- Write the simulator using Java programming language. Use any IDE of your choice.
+- IDE: IntelliJ & Visual Studio COde
 - Use GitLab for source code management.
-- Choose any function from the simulator and test it with
-    - Boundary value testing
-    - Equivalence class testing
-    - Decision table-based testing
-    - Path testing
-    - Dataflow
-    - Slice testing
-- Choose a subset of units to perform Integration testing.
-- Choose a subset of use cases to perform System testing.
+- Unit Testing: 
+   - Path testing: Node Coverage 
+
+- Integration testing:
+   - Decision table-based testing
+   - Bounday value testing 
+   - Equivalence class testing
+   
+- System testing:
+   - Finite State Machines 
 
 ## Design Requirements
 
