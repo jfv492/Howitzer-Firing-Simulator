@@ -7,13 +7,13 @@ import java.util.*;
 public class Simulator {
 
     private static final double GRAVITY = 9.81; // m/s^2 stay in simulator
-    private boolean inProgressSimulation = true; // stay in simulator
+    private boolean inProgressSimulation = true; // stay in simulator, guard, the simulator will only run if the "switch is on"
 
     public double[] simulation(Cannon cannon, RoundShot round_shot) {
         // initial position
         double max = 0;
         boolean b = true;
-        double step = 0.5;
+        double step = 0.5; // steps of time,
         double totalTime = 0;
 
         if (!inProgressSimulation) {
@@ -21,16 +21,16 @@ public class Simulator {
         }
         // trigger
         inProgressSimulation = true;
-        double [] barrelPose = cannon.getBarrelPose();
+        double[] barrelPose = cannon.getBarrelPose();
         double initialSpeed = cannon.getInitialSpeed();
-        double [] externalForce = cannon.getExternalForce();
+        double[] externalForce = cannon.getExternalForce();
         double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2], max};
 
         // calculating the intial velocity, we are assuming there is no intial z
-        double[] velocity = new double[]{initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3]), 0};
+        double[] velocity = new double[]{0, initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3])};
 
         //Using the while to to ensure the projectile lands on the ground 
-        while (p[2] >= 0 ) {
+        while (p[2] >= 0) {
             double[] dragForce = round_shot.dragForce(velocity); // first interaction with a different module
             if (dragForce == null) {
                 System.err.println("The drag Force could not be calculated. Simulation cannot be completed.");
@@ -38,10 +38,21 @@ public class Simulator {
             }
             double acceleration[];
             // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓d(𝑡)  +  𝑚𝑔
-            if (round_shot.getMass() != 0) {
-                acceleration = new double[]{(externalForce[0] + dragForce[0] + (round_shot.getMass() * GRAVITY)) / round_shot.getMass(),
-                        (externalForce[1] + dragForce[1] + (round_shot.getMass() * GRAVITY)) / round_shot.getMass(),
-                        (externalForce[2] + dragForce[2] + (round_shot.getMass() * GRAVITY)) / round_shot.getMass()};
+            if (round_shot.getMass() != 0) {// change
+                if ((externalForce[0] * dragForce[0]) <= 0) {
+                    acceleration = new double[]{
+                            (externalForce[0] + dragForce[0]) / round_shot.getMass(),
+                            (externalForce[1] + dragForce[1]) / round_shot.getMass(),
+                            (externalForce[2] + dragForce[2]) / round_shot.getMass() - GRAVITY
+                    };
+                } else {
+                    acceleration = new double[]{
+                            (externalForce[0] - dragForce[0]) / round_shot.getMass(),
+                            (externalForce[1] - dragForce[1]) / round_shot.getMass(),
+                            (externalForce[2] - dragForce[2]) / round_shot.getMass() - GRAVITY
+                    };
+
+                }
             } else {
                 System.err.println("Mass Value cannot be 0.");
                 return null;
@@ -49,20 +60,16 @@ public class Simulator {
             // In this for loop we are updating our position and velocity
             for (int i = 0; i < 3; i++) {
 
-                p[i] += velocity[i] * step + 0.5+ acceleration[i] * step * step;
-                if (acceleration[i] * step <= 0 && b == true) { // show the max height of the projectile.
+                p[i] += velocity[i] * step;
+                if ((acceleration[2] * step) <= 0 && p[2] > max && i == 2) { // show the max height of the projectile.
                     max = p[2];
-                    b = false;
                 }
                 velocity[i] += acceleration[i] * step;
             }
 
-            totalTime+= step; // not showing the total time right now.
-
+            totalTime += step; // not showing the total time right now.
 
             // on downward trajectory. - guard
-
-
         }
 
         p[3] = max;
@@ -72,6 +79,7 @@ public class Simulator {
 
         //p now contains position[x], pos[y], pos[z] and the height of the projectile at the highest point.
         return p;
+
 
     }
 
@@ -119,5 +127,5 @@ public class Simulator {
 //
 //    }
 
-
 }
+

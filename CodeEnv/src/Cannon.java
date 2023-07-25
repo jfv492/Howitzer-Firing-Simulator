@@ -3,7 +3,7 @@ public class Cannon {
 
     private double[] barrelPose; // [x, y, z, orientation] , cannon
     private double initialSpeed; // cannon
-    private double[] externalForce; // [x, y, z] // cannon
+    private double[] externalForce; // [x, y, z] , cannon
 
 
     public double[] getBarrelPose() {
@@ -24,7 +24,7 @@ public class Cannon {
 
 
     public void setInitialSpeed(double initialSpeed) {
-        if (initialSpeed <= 0) {
+        if (initialSpeed <= 0) { // security feature
             throw new IllegalArgumentException("Initial Speed cant be 0.");
         } else {
             this.initialSpeed = initialSpeed;
@@ -32,7 +32,7 @@ public class Cannon {
     }
 
     public void setExternalForce(double x, double y, double z) {
-        if (x == 0 && y == 0 && z == 0) {
+        if (x == 0 && y == 0 && z == 0) { // security feature
             throw new IllegalArgumentException("External force cannot be 0. There has to be some kind of external Force.");
         } else {
             this.externalForce = new double[]{x, y, z};
