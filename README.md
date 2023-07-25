@@ -11,7 +11,8 @@
 - IDE: IntelliJ & Visual Studio COde
 - Use GitLab for source code management.
 - Unit Testing: 
-   - Path testing: Node Coverage 
+   - Path testing: Node Coverage
+   - Node Coverage with DataFlow 
 
 - Integration testing:
    - Decision table-based testing
