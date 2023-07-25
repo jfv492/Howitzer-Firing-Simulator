@@ -12,6 +12,7 @@ public class Simulator {
     public double[] simulation(Cannon cannon, RoundShot round_shot) {
         // initial position
         double max = 0;
+        boolean b = true;
         double step = 0.5; // steps of time,
         double totalTime = 0;
 
