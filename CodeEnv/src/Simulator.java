@@ -1,7 +1,7 @@
 /*
 Group Member: Jasmeet Singh, Ahras Ali, Bulbul Arora
  */
-
+//simulator
 import java.util.*;
 
 public class Simulator {
@@ -12,7 +12,6 @@ public class Simulator {
     public double[] simulation(Cannon cannon, RoundShot round_shot) {
         // initial position
         double max = 0;
-        boolean b = true;
         double step = 0.5; // steps of time,
         double totalTime = 0;
 
@@ -29,7 +28,7 @@ public class Simulator {
         // calculating the intial velocity, we are assuming there is no intial z
         double[] velocity = new double[]{0, initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3])};
 
-        //Using the while to to ensure the projectile lands on the ground 
+        //Using the while to to ensure the projectile lands on the ground
         while (p[2] >= 0) {
             double[] dragForce = round_shot.dragForce(velocity); // first interaction with a different module
             if (dragForce == null) {
@@ -133,4 +132,3 @@ public class Simulator {
 //    }
 
 }
-
