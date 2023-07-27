@@ -12,7 +12,7 @@ public class Simulator {
     public double[] simulation(Cannon cannon, RoundShot round_shot) {
         // initial position
         double max = 0;
-        double step = 0.5; // steps of time,
+        double step = 0.1; // steps of time,
         double totalTime = 0;
 
         if (!inProgressSimulation) {
