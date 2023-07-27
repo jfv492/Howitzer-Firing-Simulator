@@ -32,14 +32,14 @@ class testSimulator {
         RoundShot round_shot = new RoundShot();
         cannon.setBarrelPose(0, 0, 0, Math.PI / 4);
         round_shot.setRadius(0.25);
-        round_shot.setMass(1);
+        round_shot.setMass(10);
         cannon.setExternalForce(100, 100, 0);
         cannon.setInitialSpeed(10);
         double[] results = simulator.simulation(cannon,round_shot);
         System.out.println(results[0] + " " + results[1] + " " + results[2] + " " + results[3]);
         assertNotEquals(new double[]{0, 0, 0}, results);
     }
-
+//
 //    @Test
 //    public void testBarrelPose_PositiveInfinity() { //testing barrel pose with a max value
 //        // checking with max+ value
@@ -49,7 +49,7 @@ class testSimulator {
 //        cannon.setBarrelPose(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
 //        round_shot.setRadius(0.25);
 //        round_shot.setMass(1);
-//        cannon.setExternalForce(100, 100, 10);
+//        cannon.setExternalForce(100, 100, 0);
 //        cannon.setInitialSpeed(10);
 //        double[] results = simulator.simulation(cannon, round_shot);
 //        assertNotNull(results);
@@ -79,7 +79,7 @@ class testSimulator {
         round_shot.setRadius(0.25);
         round_shot.setMass(10);
         cannon.setExternalForce(100, 100, 0);
-        cannon.setInitialSpeed(100);
+        cannon.setInitialSpeed(10);
         double[] results = simulator.simulation(cannon, round_shot);
         System.out.println(results[0] + " " + results[1] + " " + results[2] + " " + results[3]);
         assertNotNull(results);
@@ -124,7 +124,7 @@ class testSimulator {
         round_shot.setRadius(0.25);
         round_shot.setMass(10);
         cannon.setExternalForce(100, 100, 0);
-        cannon.setInitialSpeed(100);
+        cannon.setInitialSpeed(10);
         double[] results = simulator.simulation(cannon,round_shot);
         System.out.println(results[0] + " " + results[1] + " " + results[2] + " " + results[3]);
         assertNotNull(results);
