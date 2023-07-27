@@ -129,8 +129,8 @@ public class SimulatorGUI {
                         System.err.println("An error occurred while generating CSV and Excel files.");
                     }
 
-//                    fireCount++;
-                    //label.setText("Number of Fires: " + fireCount);
+                   fireCount++;
+                    label.setText("Number of Fires: " + fireCount);
 
                    // frame.revalidate();
                    // frame.repaint();
