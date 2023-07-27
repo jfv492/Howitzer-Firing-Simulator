@@ -104,11 +104,11 @@ public class SimulatorGUI {
                         yValue[i] = position[i * 3 + 1];
                     }
 
-                    double maxHeight = getMaxHeight(yValue);
+                   // double maxHeight = getMaxHeight(yValue);
 
                     // Convert the maximum height to meters (adjust the scale factor as needed)
                     double scaleFactor = 50; // Assuming the scale is 50
-                    maxHeight /= scaleFactor;
+                   // maxHeight /= scaleFactor;
 
                     // Display the results
                     StringBuilder showResults = new StringBuilder();
@@ -119,11 +119,21 @@ public class SimulatorGUI {
                     showResults.append("\n Maximum Height Achieved by the Projectile: ").append(position[3]).append(" meters");
                     JOptionPane.showMessageDialog(frame, showResults.toString());
 
-                    fireCount++;
-                    label.setText("Number of Fires: " + fireCount);
+                    try {
+                        String s = "Position of the projectile: " + position[0] + "," + position[1] + "," + position[2] + "\n" + "Max Height: "+ position[3];
+                        saveResultsToCSV(s);
+                        generateExcelFile();
+                        System.out.println("CSV and Excel files generated successfully!");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        System.err.println("An error occurred while generating CSV and Excel files.");
+                    }
 
-                    frame.revalidate();
-                    frame.repaint();
+//                    fireCount++;
+                    //label.setText("Number of Fires: " + fireCount);
+
+                   // frame.revalidate();
+                   // frame.repaint();
                 }
             }
         });
@@ -140,47 +150,51 @@ public class SimulatorGUI {
         frame.setTitle("Simulator Projection");
         frame.pack();
         frame.setVisible(true);
+
+
+
+
     }
 
-    private double getMaxHeight(double[] yValue) {
-        double maxHeight = yValue[0];
-        for (int i = 1; i < yValue.length; i++) {
-            if (yValue[i] > maxHeight) {
-                maxHeight = yValue[i];
-            }
-        }
-        return maxHeight;
-    }
+//    private double getMaxHeight(double[] yValue) {
+//        double maxHeight = yValue[0];
+//        for (int i = 1; i < yValue.length; i++) {
+//            if (yValue[i] > maxHeight) {
+//                maxHeight = yValue[i];
+//            }
+//        }
+//        return maxHeight;
+//    }
 
-    // private void saveResultsToCSV(double[] position, double maxHeight) throws IOException {
-    //     String outputFilePath = "output.csv";
+     private void saveResultsToCSV(String s) throws IOException {
+         String outputFilePath = "output.csv";
     
-    //     try (PrintWriter writer = new PrintWriter(new FileWriter(outputFilePath, true))) {
-    //         writer.println(position[0] + "," + position[1] + "," + position[2] + "," + maxHeight);
-    //     }
-    // }
+         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFilePath, true))) {
+             writer.println(s);
+         }
+     }
 
-    // private void generateExcelFile() {
-    //     String inputFilePath = "output.csv";
-    //     String outputFilePath = "output.xlsx";
+     private void generateExcelFile() {
+         String inputFilePath = "output.csv";
+         String outputFilePath = "output.xlsx";
 
-    //     try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
-    //          FileWriter fileWriter = new FileWriter(outputFilePath);
-    //          PrintWriter printWriter = new PrintWriter(fileWriter)) {
+         try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
+              FileWriter fileWriter = new FileWriter(outputFilePath);
+              PrintWriter printWriter = new PrintWriter(fileWriter)) {
 
-    //         String line;
-    //         while ((line = br.readLine()) != null) {
-    //             String[] data = line.split(",");
-    //             for (String datum : data) {
-    //                 printWriter.print(datum + "\t"); // Use tab as delimiter for Excel
-    //             }
-    //             printWriter.println(); // Move to the next row
-    //         }
+             String line;
+             while ((line = br.readLine()) != null) {
+                 String[] data = line.split(",");
+                 for (String datum : data) {
+                     printWriter.print(datum + "\t"); // Use tab as delimiter for Excel
+                 }
+                 printWriter.println(); // Move to the next row
+             }
 
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
     
 
     public static void main(String[] args) {

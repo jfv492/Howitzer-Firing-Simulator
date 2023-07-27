@@ -38,7 +38,7 @@ public class RoundShot {
         // flow velocity = [x,y,z]
         double density = 1.225; // assuming air density at sea level = 1.225 kg / m^3
         double[] dragForce = new double[3];
-        double dragForceMagnitude;
+
 
         if (radius <= 0) {
             return null;
@@ -58,7 +58,7 @@ public class RoundShot {
                     flowVelocity[2] / flowVelocityMagnitude
             };
 
-            dragForceMagnitude = -0.5 * dragCoefficient * density * area * flowVelocityMagnitude * flowVelocityMagnitude;
+            double dragForceMagnitude = -0.5 * dragCoefficient * density * area * flowVelocityMagnitude * flowVelocityMagnitude;
 
             for (int i = 0; i < 3; i++) {
                 dragForce[i] = dragForceMagnitude * unit[i]; // magnitude * x unit component ...

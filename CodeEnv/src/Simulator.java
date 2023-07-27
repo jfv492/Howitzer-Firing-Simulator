@@ -13,9 +13,9 @@ public class Simulator {
         // initial position
         double max = 0;
         double step = 0.1; // steps of time,
-        double totalTime = 0;
+        double totalTime = 0;  // node 1
 
-        if (!inProgressSimulation) {
+        if (!inProgressSimulation) { // node 2
             return null;
         }
         // trigger
@@ -25,20 +25,20 @@ public class Simulator {
         double[] externalForce = cannon.getExternalForce();
         double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2], max};
 
-        // calculating the intial velocity, we are assuming there is no intial z
-        double[] velocity = new double[]{0, initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3])};
+        // calculating the initial velocity, we are assuming there is no initial z
+        double[] velocity = new double[]{0, initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3])}; // node 3
 
         //Using the while to to ensure the projectile lands on the ground
-        while (p[2] >= 0) {
+        while (p[2] >= 0 || totalTime <= 30) { // node 5
             double[] dragForce = round_shot.dragForce(velocity); // first interaction with a different module
-            if (dragForce == null) {
+            if (dragForce == null) { // node 6
                 System.err.println("The drag Force could not be calculated. Simulation cannot be completed.");
                 return null;
             }
             double acceleration[];
             // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓d(𝑡)  +  𝑚𝑔
             if (round_shot.getMass() != 0) {// change
-                if ((externalForce[0] * dragForce[0]) <= 0) {
+                if ((externalForce[0] * dragForce[0]) <= 0) { // 9
                     acceleration = new double[]{
                             (externalForce[0] + dragForce[0]) / round_shot.getMass(),
                             (externalForce[1] + dragForce[1]) / round_shot.getMass(),
@@ -57,7 +57,7 @@ public class Simulator {
                 return null;
             }
             // In this for loop we are updating our position and velocity
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++) { // node 10
 
                 p[i] += velocity[i] * step;
                 if ((acceleration[2] * step * step) <= 0 && p[2] > max && i == 2) { // show the max height of the projectile.
@@ -67,7 +67,7 @@ public class Simulator {
             }
 
             totalTime += step; // not showing the total time right now.
-//            System.out.println(p[0] + " " + p[1] + " " + p[2] + " ");
+            System.out.println(p[0] + " " + p[1] + " " + p[2] + " ");
 
             if(p[2] < 0){
                 p[2] = 0;
