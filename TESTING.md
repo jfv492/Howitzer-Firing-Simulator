@@ -1,11 +1,9 @@
 # Testing and UML
 
 ## Version 1
-### UML
+#### UML
 - [Communication Diagram](https://gitlab.com/jasmeets/ense375project/-/blob/main/Project%20Planning/Communication_Diagram.pdf?ref_type=heads)
-
 - [Project Requirements Document](https://gitlab.com/jasmeets/ense375project/-/blob/main/Project%20Planning/Project-Requirements-Document.pdf?ref_type=heads)
-
 - 
 
 - Sequence Diagram: https://gitlab.com/jasmeets/ense375project/-/blob/main/Project%20Planning/System_Sequence_Diagram.pdf?ref_type=heads
