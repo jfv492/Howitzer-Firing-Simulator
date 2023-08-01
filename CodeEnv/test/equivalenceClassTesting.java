@@ -12,19 +12,19 @@ public class equivalenceClassTesting {
         Cannon cannon = new Cannon();
         RoundShot round_shot = new RoundShot();
         //setup for validating the inputs
-        cannon.setBarrelPose(1,1,1, Math.PI / 4);
+        cannon.setBarrelPose(0,0,0, Math.PI / 4);
         round_shot.setRadius(0.25);
-        round_shot.setMass(0.5);
+        round_shot.setMass(10);
         cannon.setInitialSpeed(10);
-        cannon.setExternalForce(100,100,100);
+        cannon.setExternalForce(100,100,0);
 
         double [] position = simulator.simulation(cannon,round_shot);
 
         assertNotNull(position);
 
-//        assertEquals(-75.97332312833615, position[0], 0.001);
-//        assertEquals(-75.97332312833615, position[1], 0.001);
-//        assertEquals(-88.79341036242101, position[2], 0.001);
+        assertEquals(98.52134441110698, position[0], 0.001);
+        assertEquals(194.76695378708988, position[1], 0.001);
+        assertEquals(0, position[2], 0.001);
     }
 
     @Test

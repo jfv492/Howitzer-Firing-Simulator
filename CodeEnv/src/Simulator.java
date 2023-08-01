@@ -2,7 +2,9 @@
 Group Member: Jasmeet Singh, Ahras Ali, Bulbul Arora
  */
 //simulator
+import java.io.IOException;
 import java.util.*;
+import java.io.FileWriter;
 
 public class Simulator {
 
@@ -15,6 +17,7 @@ public class Simulator {
         double step = 0.1; // steps of time,
         double totalTime = 0;  // node 1
 
+
         if (!inProgressSimulation) { // node 2
             return null;
         }
@@ -23,29 +26,29 @@ public class Simulator {
         double[] barrelPose = cannon.getBarrelPose();
         double initialSpeed = cannon.getInitialSpeed();
         double[] externalForce = cannon.getExternalForce();
-        double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2], max};
+        double[] p = new double[]{barrelPose[0], barrelPose[1], barrelPose[2], max}; // p contains the position(x,y,z) and the max z component, which is the max height the projectile reaches.
 
         // calculating the initial velocity, we are assuming there is no initial z
         double[] velocity = new double[]{0, initialSpeed * Math.cos(barrelPose[3]), initialSpeed * Math.sin(barrelPose[3])}; // node 3
 
         //Using the while to to ensure the projectile lands on the ground
-        while (p[2] >= 0 || totalTime <= 30) { // node 5
+        while (p[2] >= 0) { // node 5
             double[] dragForce = round_shot.dragForce(velocity); // first interaction with a different module
             if (dragForce == null) { // node 6
                 System.err.println("The drag Force could not be calculated. Simulation cannot be completed.");
                 return null;
             }
             double acceleration[];
-            // Using the formula: 𝑚𝑣'(𝑡)  =  𝑓(𝑡)  +  𝑓d(𝑡)  +  𝑚𝑔
+            // Using the formula: mv' = force_external + force_drag + m*g
             if (round_shot.getMass() != 0) {// change
                 if ((externalForce[0] * dragForce[0]) <= 0) { // 9
-                    acceleration = new double[]{
+                    acceleration = new double[]{ // if drag force is negative.
                             (externalForce[0] + dragForce[0]) / round_shot.getMass(),
                             (externalForce[1] + dragForce[1]) / round_shot.getMass(),
                             (externalForce[2] + dragForce[2]) / round_shot.getMass() - GRAVITY
                     };
                 } else {
-                    acceleration = new double[]{
+                    acceleration = new double[]{ // if the returned drag force is not negrative, because drag will always be on the opposite side.
                             (externalForce[0] - dragForce[0]) / round_shot.getMass(),
                             (externalForce[1] - dragForce[1]) / round_shot.getMass(),
                             (externalForce[2] - dragForce[2]) / round_shot.getMass() - GRAVITY
@@ -60,11 +63,12 @@ public class Simulator {
             for (int i = 0; i < 3; i++) { // node 10
 
                 p[i] += velocity[i] * step;
-                if ((acceleration[2] * step * step) <= 0 && p[2] > max && i == 2) { // show the max height of the projectile.
+                if ((acceleration[2] * step *step ) <= 0 && p[2] > max && i == 2) { // show the max height of the projectile.
                     max = p[2];
                 }
-                velocity[i] += acceleration[i] * step * step;
+                velocity[i] += acceleration[i] * step *step;
             }
+
 
             totalTime += step; // not showing the total time right now.
             System.out.println(p[0] + " " + p[1] + " " + p[2] + " ");
@@ -80,11 +84,8 @@ public class Simulator {
         inProgressSimulation = false;
         System.out.println(totalTime);
 
-
         //p now contains position[x], pos[y], pos[z] and the height of the projectile at the highest point.
         return p;
-
-
     }
 
 //    public static void main(String[] args) {
