@@ -8,7 +8,7 @@
 
 ## Project Specifications
 
-- IDE: IntelliJ & Visual Studio COde
+- IDE: IntelliJ & Visual Studio Code
 - Use GitLab for source code management.
 - Unit Testing: 
    - Path testing: Node Coverage
