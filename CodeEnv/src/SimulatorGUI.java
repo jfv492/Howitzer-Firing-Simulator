@@ -120,7 +120,7 @@ public class SimulatorGUI {
                     JOptionPane.showMessageDialog(frame, showResults.toString());
 
                     try {
-                        String s = "Position of the projectile: " + position[0] + "," + position[1] + "," + position[2] + "\n" + "Max Height: "+ position[3];
+                        String s = "Position of the projectile, " + position[0] + "," + position[1] + "," + position[2] + "\n" + "Max Height, "+ position[3];
                         saveResultsToCSV(s);
                         generateExcelFile();
                         System.out.println("CSV and Excel files generated successfully!");
@@ -166,15 +166,15 @@ public class SimulatorGUI {
 //        return maxHeight;
 //    }
 
-     private void saveResultsToCSV(String s) throws IOException {
+     public void saveResultsToCSV(String s) throws IOException {
          String outputFilePath = "output.csv";
-    
+
          try (PrintWriter writer = new PrintWriter(new FileWriter(outputFilePath, true))) {
              writer.println(s);
          }
      }
 
-     private void generateExcelFile() {
+     public void generateExcelFile() {
          String inputFilePath = "output.csv";
          String outputFilePath = "output.xlsx";
 
@@ -195,7 +195,7 @@ public class SimulatorGUI {
              e.printStackTrace();
          }
      }
-    
+
 
     public static void main(String[] args) {
         new SimulatorGUI();
