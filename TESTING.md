@@ -25,12 +25,12 @@ Version 1:
 Simulator: https://gitlab.com/jasmeets/ense375project/-/blob/main/Version%201/Simulator.java
 Test Simulator: https://gitlab.com/jasmeets/ense375project/-/blob/main/Version%201/testSimulator.java
 
-Version 2: 
+## Version 2
 
 Simulator: https://gitlab.com/jasmeets/ense375project/-/blob/main/Version%202/Simulator.java
 Test Simulator: https://gitlab.com/jasmeets/ense375project/-/blob/main/Version%202/testSimulator.java
 Equivalence class testing: https://gitlab.com/jasmeets/ense375project/-/blob/main/Version%202/equivalenceClassTesting.java
 
-Version 3: 
+## Version 3
 
 
