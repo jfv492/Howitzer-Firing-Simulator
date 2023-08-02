@@ -1,7 +1,7 @@
 # ENSE375 Software Testing and Validation Project: Howitzer Firing Simulator
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Fork-%28artillery%29.gif" width="100%" height="300">
+  <img src="https://knowyourmeme.com/photos/556312-warhammer-40000" width="100%" height="300">
 </p>
 
 
