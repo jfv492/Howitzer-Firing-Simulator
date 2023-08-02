@@ -7,13 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-// import org.jfree.chart.ChartFactory;
-// import org.jfree.chart.ChartPanel;
-// import org.jfree.chart.JFreeChart;
-// import org.jfree.chart.plot.PlotOrientation;
-// import org.jfree.data.xy.XYSeries;
-// import org.jfree.data.xy.XYSeriesCollection;
-
 
 /*
  * References:
@@ -25,7 +18,7 @@ import java.io.*;
 public class SimulatorGUI {
     private int fireCount = 0;
     private Simulator simulator;
-    private double[] position; // Declare position variable at the class level
+    private double[] position; 
 
     public SimulatorGUI() {
         JFrame frame = new JFrame();
@@ -129,8 +122,8 @@ public class SimulatorGUI {
                         System.err.println("An error occurred while generating CSV and Excel files.");
                     }
 
-//                    fireCount++;
-                    //label.setText("Number of Fires: " + fireCount);
+                   fireCount++;
+                    label.setText("Number of Fires: " + fireCount);
 
                    // frame.revalidate();
                    // frame.repaint();
@@ -156,15 +149,6 @@ public class SimulatorGUI {
 
     }
 
-//    private double getMaxHeight(double[] yValue) {
-//        double maxHeight = yValue[0];
-//        for (int i = 1; i < yValue.length; i++) {
-//            if (yValue[i] > maxHeight) {
-//                maxHeight = yValue[i];
-//            }
-//        }
-//        return maxHeight;
-//    }
 
      public void saveResultsToCSV(String s) throws IOException {
          String outputFilePath = "output.csv";
@@ -186,9 +170,9 @@ public class SimulatorGUI {
              while ((line = br.readLine()) != null) {
                  String[] data = line.split(",");
                  for (String datum : data) {
-                     printWriter.print(datum + "\t"); // Use tab as delimiter for Excel
+                     printWriter.print(datum + "\t"); 
                  }
-                 printWriter.println(); // Move to the next row
+                 printWriter.println(); 
              }
 
          } catch (IOException e) {
@@ -199,7 +183,5 @@ public class SimulatorGUI {
 
     public static void main(String[] args) {
         new SimulatorGUI();
-        // String workingDirectory = System.getProperty("user.dir");
-        // System.out.println("Current working directory: " + workingDirectory);
     }
 }
