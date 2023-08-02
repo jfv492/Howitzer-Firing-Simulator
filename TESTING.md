@@ -38,8 +38,8 @@
 - [Equivalence Class Testing](https://gitlab.com/jasmeets/ense375project/-/blob/main/Project%20Planning/Equivalence_Class_Testing_Version_2_and_3.pdf?ref_type=heads)
 - [Decision Table Testing](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Decision_Table_Based_Testing.pdf)
 - [Integration Testing](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Integration_Testing.pdf)
-- [Node Coverage](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Node_Coverage.pdf)
-- [Node Coverage with Data Flow](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Node_Coverage_with_DataFlow.pdf)
+- [Node Coverage](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Node%20Coverage.pdf?ref_type=heads)
+- [Node Coverage with Data Flow](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Node%20Coverage%20with%20DataFlow.pdf?ref_type=heads)
 - [Boundary Value Testing](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/Boundary_Value_Testing_version_3.pdf)
 - [Finite State Machine](https://gitlab.com/jasmeets/ense375project/-/blob/main/Testing/FSM_Final_Diagram.pdf)
 
