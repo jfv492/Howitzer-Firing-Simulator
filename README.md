@@ -1,7 +1,7 @@
 # ENSE375 Software Testing and Validation Project: Howitzer Firing Simulator
 
 <p align="center">
-  <img src="https://images.app.goo.gl/ehwrDwAfhXu" width="100%" height="300">
+  <img src="http://photoshopcontest.com/view-entry/211714/votes.html" width="100%" height="300">
 </p>
 
 
